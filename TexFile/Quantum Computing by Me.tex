@@ -1,0 +1,868 @@
+\documentclass[english,a4paper,12pt,oneside]{scrbook}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[english]{babel}
+\usepackage{marvosym}
+\usepackage{boxedminipage}
+\usepackage{braket}
+\usepackage{framed,color}
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage[skins]{tcolorbox}
+\usepackage{natbib}
+\usepackage{graphicx} 
+\newtheorem{satz}{Satz}[chapter]
+\theoremstyle{definition} 
+\newtheorem{definition}[satz]{Definition} 
+\theoremstyle{definition} 
+\newtheorem{lemma}[satz]{Lemma} 
+\theoremstyle{definition} 
+\newtheorem{bemerkung}[satz]{Bemerkung}
+\theoremstyle{definition} 
+\newtheorem{korollar}[satz]{Korollar} 
+\theoremstyle{definition}
+\newtheorem{beispiel}[satz]{Beispiel} 
+\theoremstyle{definition} 
+\newtheorem{algorithmus}{Algorithmus} 
+\newenvironment{beweis}{\begin{proof}[Beweis]}{\end{proof}}
+\tcbset{commonstyle/.style={boxrule=0pt,sharp corners,enhanced jigsaw,nobeforeafter,boxsep=0pt,left=\fboxsep,right=\fboxsep}}
+
+\newtcolorbox{mybox}[3][]
+{
+  colframe = #2!25,
+  colback  = #2!10,
+  coltitle = #2!20!black,  
+  title    = {#3},
+  #1,
+}
+
+
+\newlength\myboxwidth
+
+\setlength{\myboxwidth}{\dimexpr\textwidth-2\fboxsep}
+
+\begin{document}
+\tableofcontents
+\newpage
+
+\chapter{Quantum mechanical preparation}
+\section{Physical systems and the uncertainty Principle}
+\subsection{The classical state of a physical system}
+\begin{tcolorbox}
+In this section we will learn what a \textit{physical system} is and how the \textit{classical state} of such a system is defined. Then we will look at the difference between \textit{macroscopic} and \textit{microscopic} physical systems , which will lead us directly into the world of quantum physics.
+\end{tcolorbox}
+
+
+Before we can dive into the quantum mechanical part of this course, we have to take a look at the concepts of physical systems and the states they can be found in. The easiest way to start is by imagining a ball flying through the air, as you can see in Figure \ref{bild1}.
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild1.jpeg}
+  \caption{Example for a classical physical system. A ball flies through the air in a height h over the earth's surface with a momentum p in x-direction.}
+  \label{bild1}
+\end{figure}
+
+We are seeing the ball right now at this moment, so we observe the system at time $t=0$. The ball has a height $h$ over the ground and is moving with momentum $p$ in x-direction. As a short reminder: the momentum of a body is defined via its mass and its velocity
+
+\begin{equation}
+\mathbf{p} = m\mathbf{v}
+\end{equation}
+where the bold letters shall indicate that we are talking about 3-dimensional vectors. Every moving body has a momentum in x-,y- and z- direction, therefore the three dimensions. In the case of the ball flying through Figure \ref{bild1}, the momentum in y- and z-direction would be zero.
+Everything that we can see in Figure \ref{bild1}  can be understood as a \textit{physical system}. A physical system is just a small part of the universe that we chose to observe and analyse while we are pretty much ignoring the environment.\\
+When it comes to a physical system, we are not only interested in analysing it, but also in predicting its future evolution. The information that we need to do so is contained in the so-called \textit{classical state} of the system. In our case, the information, that we need, would be the height of the ball above the earth's surface and its momentum in x-direction.\\ If we know $h$ and $p$ at time $t=0$, we are able to determine the evolution of the physical system for $t>0$. So the state of the system is represented by the pair of numbers $(p,h)$.\\
+Mathematically, the classical state of a physical system would be a point in so-called \textit{phase space}. In case of the example above, the state is represented by the pair of numbers $(p,h)$, which would be a point in a 2-dimensional plane with the x-axis denoting the momentum in x-direction and the y-axis denoting the height above the ground - all at time $t=0$. At another time (earlier or later) the point would be somewhere else in this plane.\\
+
+
+\begin{mybox}{blue}{\textbf{Physical systems and classical states}}
+A \textit{physical system} is a small part of the universe, that we chose to observe and analyse, just like a ball flying over the ground. The \textit{classical state} of a physical system is determined by its momentum and its spatial position, which can be represented as a dot in \textit{phase space}. This dot is enough, to determine the entire future of the physical system.
+\end{mybox}
+
+
+For a better visualization of the phase space concept, we can assume that the ball has a mass $m=1kg$ and is currently - at time $t=0$ - $2m$ above the ground. Its velocity in x-direction shall be $v=3m/s$. This would result in a momentum of:
+
+\begin{equation}
+p = mv = 1kg\cdot 3\frac{m}{s} = 3 \frac{kg m}{s}
+\end{equation}
+Now that we know the exact values for the height and for the momentum, we can represent the state of the system by the point $(3,2)$ in 2-dimensional phase space (see Figure \ref{bild2}
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild2.jpeg}
+  \caption{This is how the 2-dimensional phase space of the physical system from Figure 1 would look like. It's just a 2-dimensional plane with the x-axis denoting the momentum in x-direction and the y-axis denoting the height over the ground. The state of such a system is a point in this plane. In the case of the ball flying through the air, the state at time t=0 would be the point (3,2).}
+  \label{bild2}
+\end{figure}
+
+Normally we would need three coordinates to fully describe the momentum vector and we would also need three coordinates to describe the spatial position. This is the reason, why the phase space of a physical system is in general a 6-dimensional space and a classical state would be a point in this space with the coordinates $(x,y,z,p_x,p_y,p_z)$.\\
+The concept of classical states as being a point in 6-dimensional phase space works pretty well to describe and determine the future of many different types of physical systems: Flying balls, moving cars, starting rocket,...\\
+Physical systems like theese are called \textit{macroscopic systems}: they are big enough to be seen with our bare eyes - simply spoken.\\
+The opposite of a macroscopic system is  a \textit{microscopic system}, which is to small to be seen with our eyes.\\ Molecules, atoms or subatomic particles would fall into the category of microscopic systems. And for microscopic systems, the concept of classical states does not work anymore.\\
+As physicist Werner Heisenberg discovered in the 1920's, it is impossible to determine the exact classical state of a microscopic system. This is widely known as the uncertainty principle, which we now will take a closer look on.
+
+
+\subsection{The uncertainty principle}
+
+\begin{tcolorbox}
+In this section we will learn what the \textit{uncertainty principle} is and how it is related to quantum physics. The uncertainty principle will show us that the concept of classical states does not work when we want to describe the evolution of a quantum system.
+\end{tcolorbox}
+
+So what is the uncertainty principle exactly?\\
+The uncertainty principle states that it is impossible to measure the momentum and the spatial position of a microscopic particle at the same time \textit{and} get a precise value for both of them.\\
+The momentum and the position of a microscopic particle seem to be somehow connected to each other. If we for example measure the momentum of the particle and get a precise value, it gets impossible to know exactly \textit{where} the particle actually is at the same time. And this has nothing to do with our measuring devices being crap. \\
+No, it is a fundamental law of nature.\\
+The more precise you measure one value (it does not matter if the momentum or the position), the less exact your measurement outcome for the other one will be.\\
+We could also express the uncertainty principle in terms of - well - \textit{uncertainties}.\\
+We shall call the uncertainty of the spatial position $\Delta x$ and the uncertainty for the momentum $\Delta p$. \\
+If we measure a box standing $x = 2m$ faway rom us and the uncertainty is $\Delta x = 1m$, then the box could have any distance between $1m$ and $3m$ away from us.\\
+So the uncertainty principle states that a low uncertainty for one of the two values will result in a high uncertainty for the other value. If we for example measure the momentum of a particle exactly, that would make the uncertainty pretty small. But this small uncertainty will have an impact on the measurement outcome for the position and its uncertainty will grow to almost infinity. \\
+Mathematically, the uncertainty principle is written in the following form:
+
+\begin{equation}
+\Delta x \Delta p \geq \frac{\hbar}{2}
+\end{equation}
+In this equation, $\hbar = \frac{h}{2\pi}$ stands for the Planck constant (which has an extremely small value).\\
+To better understand the meaning of the equation, we rewrite it:
+\begin{equation}
+\Delta x \geq \frac{\hbar}{2\Delta p}
+\end{equation}
+
+
+Let's assume, we have an electron and we are able to precisely measure the momentum of it. This would make the uncertainty for the momentum pretty small, so the fraction $\frac{\hbar}{2\Delta p}=\Delta x$ gets extremely big. This means that the uncertainty of the location - where to find the electron - grows extremely big. We may just have found out the exact momentum of the electron, but we do not know, where it is located. It could be anywhere.\\
+Since it is impossible to measure the  momentum and the position equally precise at the same time, the concept of  classical states no longer make sense. It is not possible anymore to represent the state of a microscopic system by a single point in phase space. \\
+Physical states, in which the uncertainty principle rules, are called \textit{quantum systems}.\\
+
+
+\begin{mybox}{blue}{\textbf{The uncertainty principle}}
+The \textit{uncertainty principle} (discovered by Werner Heisenberg) states that it is impossible to measure the momentum and the position of a microscopic particle simultaneously \textit{and} get exact values for both. The more precise you measure the momentum, the less precise your position measurement will be and vice versa.\\
+Microscopic physical systems that are small enough to fall into the reign of the uncertainty principle (just like molecules, atoms and subatomic particles) are also called \textit{quantum systems}.\\
+The uncertainty principle makes it impossible to get precise values for the momentum and the position of a quantum particle, so the concept of classical states no longer works to describe the evolution of a quantum system.\\
+\end{mybox}
+
+Since nature does not want us to determine the classical state of a quantum system, we need another way to get the information we need in order to predict the future evolution of the  system. We need a new concept to describe the state of a quantum system, we need a \textit{quantum state}. And the best way to understand the concept of quantum states is by taking a look at the famous double slit experiment.
+
+
+\newpage
+
+
+
+\section{The double slit experiment}
+\subsection{Lightwaves}
+
+\begin{tcolorbox}
+In this section we will learn about the \textit{double slit experiment}  with light and electrons. We will see that not only light behaves like a wave, but electrons as well. This will eventually lead us to the definition of a \textit{quantum state} and one of the most fundamental laws of quantum physics: the \textit{superposition principle}.
+\end{tcolorbox}
+
+As we remember from our time back in school, light is a wave and its wavelength determines the color of the light. Shorter wavelengths correspond to blue and more energetic light, longer wavelengths correspond to red and less energetic light (see Figure \ref{bild3}).\\
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild3.jpeg}
+  \caption{Illustration of waves with different wavelengths. The shorter the wavelength, the more energetic the light is. This makes red light (long wavelength) less energetic than blue light (short wavelength).}
+  \label{bild3}
+\end{figure}
+
+Now imagine we  have a  light source, which we assume to emit so-called \textit{monochromatic} light. Monochromatic means that all the waves leaving the lightsource have exactly the same wavelength. The sunlight for example is \textbf{not} monochromatic - it contains all the wavelengths of the electromagnetic spectrum. A laser would be such a monochromatic light source.\\
+We put this light source in front of a wall with two small slits in it and behind the wall we hang up a screen to observe the path of the light. The whole experimental setup is visualized in Figure \ref{bild4}.\\
+We activate the light source and the emitted monochromatic light propagates through space and towards the double slit wall. The lightwaves pass through the slits, interfer with each other on the other side and produce a pattern of dark and bright bands on the screen behind the wall. This pattern is called \textit{interference pattern}.\\
+The only reason why it is possible to see this interference pattern on the screen is because light propagates as a wave through space and therefore can pass through both slits at the same time. \\
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild4.jpeg}
+  \caption{Monochromatic light leaves the light source, propagates through space towards the double slit and passes through both slits at the same time to interfer with itself on the other side and produce an interference pattern on the screen behind the double slit wall. }
+  \label{bild4}
+\end{figure}
+
+\begin{mybox}{blue}{\textbf{The double slit experiment}}
+Light is wave and when you let it propagate through space towards a wall with two thin slits in it, the light will pass through both slits at the same time and will \textit{interfer}  with itself on the other side. We are able to see a sequence of bright and dark bands on the screen, which is called an \textit{interference pattern}. The double slit experiment serves as a proof for the wave-like nature of light.
+\end{mybox}
+
+What would happen, if we used electrons instead of light waves? How would they behave, when we shoot them towards the double-slit wall? \\
+Classically, we would imagine them as tiny balls flying around. But the experiment shows something else.
+
+
+
+
+
+
+
+
+
+\subsection{Double slit with electrons}
+From what we learned back in school, we can imagine microscopic particles like atoms or electrons as tiny little balls flying around. This is also how Niels Bohr imagined an atom to look like in the beginning of the quantum era. The electrons were just like planets orbiting the nucleus, which contains almost all of the mass of the atom. \\
+But when we do the double slit experiment with electrons or other subatomic particles, they do not behave like classical little balls. \\
+To do the double slit experiment we need to imagine having an electron gun, that is able to produce and shoot out a bunch of electrons. We point the gun in the direction of the double slit wall and start to shoot the electrons. The electrons pass through the slits and hit the screen (which we assume to light up everytime it gets hit by an electron). The whole experimental setup is demonstrated in Figure \ref{bild5}.
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild5.jpeg}
+  \caption{Double slit experiment, but this time with electrons. An electron gun shoots electrons towards a double slit wall. The electrons pass through the slits and produce an interference pattern on the screen on the other side. Although we would classically imagine electrons as tiny little balls flying around, they seem to behave like waves and pass through both slits at the same time.}
+  \label{bild5}
+\end{figure}
+
+After some time shooting electrons through the slits we will observe an interference pattern on the screen behind the double slit wall. Seeing an interference pattern means that the electrons must have behaved like waves. How is that possible? Aren't they supposed to be actual \textit{particles}, tiny little balls flying around, not a wave vibing through space?\\
+It just seems like microscopic particles do not behave anymore like we would classically expect them to. 
+Electrons can behave like waves, the can interfer with themselves and pass through both slits at the same time.\\
+But maybe this happens because the electrons "communicate" with each other? Maybe the interference pattern is just because a couple of thousand electrons produce that after passing as a group through a double slit wall? Maybe a group of electrons behaves like wave but a single electron is still behaves like a tiny little ball?\\
+The crazy part is that we can repeat the experiment and shoot just single electrons out of the gun.\\
+Let's assume, that the gun shoots out an electron, it passes through the slits and when it hits the screen, the gun gets a signal to shoot another one.\\
+I have visualized that experimental setup in Figure \ref{bild6}.\\
+At first, it may seem like a coincidence, where the electrons hit the screen. But after some time shooting particles through the double slit wall, we will start to observe an interference pattern again. \\
+So it seems that indeed a single electron propagates through space like a wave.
+We could do this experiment with any microscopic \textit{quatum particle}. Physicists have done it with atoms and even with molecules.\\ 
+
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.6\textwidth]{bild8.jpeg}
+  \caption{Double slit experiment with electrons again, but this time the electron shoots only one electron at a time. As soon as the electron hits the screen behind the wall, the gun shoots a new one through the slits. In the beginning it seems like a coincidence, where on the screen the electrons would land. But after some time one would recognize an interference pattern. }
+  \label{bild6}
+\end{figure}
+
+
+\begin{mybox}{blue}{\textbf{Double slit with electrons}}
+When you shoot electrons towards a double slit wall, they will pass through both of the slits at same time, showing their wave-like nature. They produce an interference pattern on the screen behind the wall, which happens to be there, even if you send the electrons one by one through the slits.\\
+This experiment has been repeated with atoms and molecules and serves as a proof, that quantum particles like electrons and atoms  behave like waves sometimes.
+\end{mybox}
+
+
+So quantum particles like electrons or atoms don't act as classical particles, they behave like waves.
+When we shoot quantum particles through a double slit wall, it seems like they are bassing through both slits at the same time. \\
+One can say, the electron is two classical states at the same time.
+The whole experimental setup of the double slit experiment can be understood as a quantum system.
+Since the electrons are in two classical states at the same time, the quantum system is in two classical states.\\
+The quantum state is a so-called \textit{superposition} of classical states.
+And this is how we can finally define the state of a quantum system.\\
+In general, a quantum state is defined as a superposition of a certain amount of classical states.\\
+This is known as the \textit{superposition principle} and it is one of the most fundamental principles of quantum physics. \\
+
+
+\begin{mybox}{blue}{\textbf{Quantum states and the superposition principle}}
+We learned from the double slit experiment that the \textit{quantum state} of a quantum system can be understood as an overlap of two classical states at the same time. This is known as the \textit{superposition principle}. The quantum system is in a superposition of classical states.
+\end{mybox}
+\begin{tcolorbox}
+Mathematically, a quantum state would be defined as a vector in a Hilbert space (which is a special type of vector space). The Hilbert space has a basis of vectors, which correspond to classical states and any state vector can be written as a linear combination (superposition) of the basis vectors.
+\end{tcolorbox}
+The mathematical definition of a quantum state sounds pretty complex and in order to understand it, we will have to put in a little maths session right now. 
+This will help us later to understand important concepts like qubits, quantum gates or entanglement.\\
+So let's get into the mathematics part, to understand those two sentences.
+
+
+\newpage
+
+\section{Vector spaces and quantum states}
+\begin{tcolorbox}
+In this section we are going to learn how a  \textit{vector space} is defined and what we can imagine when we talk about the \textit{basis} of a vector space. We will apply this knowledge to understand what a \textit{Hilbert space} is and finally mathematically define a \textit{quantum state} using the \textit{superposition principle}.
+\end{tcolorbox}
+
+\subsection{Definition of a vector space}
+
+Let's jump right into the definition of a vector space.
+A vector space over a field K is a set of elements, equipped two operations - vector addition and scalar multiplication - that needs to fullfill a certain number of axioms.\\
+Okay, we need to break that a little down.\\
+First, what is a field?\\
+A field is a set of elements, on which addition, substraction, multiplication and division are defined.  This sounds pretty odd, but in mathematics, everything is defined rigourously. You cannot just take a set of numbers and add its elements. You first have to define the operation of addition of this specific set of numbers, before you can actually add the numbers up.\\
+An example for a field would be the set of real numbers $\mathbb{R}$, which includes pretty much all the numbers we know from our daily life: 1,2,3,-1,-245,$\pi$, $e$, $\sqrt{2}$,...
+Let's return to the definition of the vector space.\\
+A vector space is a set of elements (which are called vectors), equipped with two operations:
+\begin{itemize}
+\item vector addition $+: V \times V \rightarrow V$: adding two vectors $\mathbf{v}+\mathbf{w}$ with $\mathbf{v},\mathbf{w}\in  V$ results in a third vector, that is also an element of the vector space V $\mathbf{v}+\mathbf{w}\in  V$
+\item scalar multiplication $\cdot : V \times V \rightarrow V$: an element from the field K is called a scalar. Let $a \in K$ be a scalar and $\mathbf{v}\in V$ a vector in the vector space V. Then $a\cdot \mathbf{v} \in V$, the scalar multiplied with the vector still results in a vector of the vectorspace V.
+\end{itemize}
+To better understand those abstract formulations, we will take a look at the 2-dimensional vector space $\mathbb{R}^2$ over the field of real numbers $\mathbb{R}$.\\
+A vector in $V = \mathbb{R}^2$ can be written in the form:
+\begin{equation}
+\mathbf{v}\in V \, \, \, \mathbf{v} = \left(\begin{array}{c}v_1\\v_2\end{array}\right)
+\end{equation}
+Here, $v_1 \in \mathbb{R}$ and $v_2 \in \mathbb{R}$ are the components of the vector. Every vector in $\mathbb{R}^2$ can be written in this form, a vector is an element of the vector space $\mathbb{R}^2$, as long as the components are elements of the field $\mathbb{R}$.\\
+A vector in the vector space $\mathbb{R}^2$ can be graphically imagined like in Figure 7, written in components it would be $\mathbf{v} = \left(\begin{array}{c}3\\2\end{array}\right)$.
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild9.jpeg}
+  \caption{Graphical Visualization of the 2-dimensional vector $\mathbf{v}=(3,2)$.}
+  \label{fig:Bild1}
+\end{figure}
+
+If we take two vectors $\mathbf{v},\mathbf{w}\in \mathbb{R}^2$ 
+\begin{equation}
+\mathbf{v} = \left(\begin{array}{c}v_1\\v_2\end{array}\right) \, \, \, \, \, \mathbf{w} = \left(\begin{array}{c}w_1\\w_2\end{array}\right) \, \, \, \, v_i,w_i \in \mathbb{R}, i=1,2
+\end{equation}
+and add them together
+\begin{equation}
+\mathbf{v} + \mathbf{w} =  \left(\begin{array}{c}v_1\\v_2\end{array}\right) + \left(\begin{array}{c}w_1\\w_2\end{array}\right) = \left(\begin{array}{c}v_1+w_1\\v_2+w_2\end{array}\right) \in \mathbb{R}^2
+\end{equation}
+then the result is still a vector in $\mathbb{R}^2$, since the components $v_1+w_1 \in \mathbb{R}$ and $v_2+w_2\in \mathbb{R}$ are still elements of the field $\mathbb{R}$.
+Let's now take a look at the scalar multiplication on the vector space $\mathbb{R}^2$. Let $a\in \mathbb{R}$ be an element of the field $\mathbb{R}$ ($a$ is a scalar), and $\mathbf{v}\in \mathbb{R}^2$ a vector. Performing a scalar multiplication would mean, to multiply the scalar with each component of the vector:
+\begin{equation}
+a\cdot \mathbf{v} = a \cdot \left(\begin{array}{c}v_1\\v_2\end{array}\right) = \left(\begin{array}{c}av_1\\av_2\end{array}\right) \in \mathbb{R}^2 \, \, \, \, \, \, \, since \, \, \, \, \, \, a\cdot v_i \in \mathbb{R}, i=1,2
+\end{equation}
+
+In the beginning  I said, that the set of vectors has to fulfill a certain set of axioms. We will work through those now.
+\begin{itemize}
+\item Associativity of addition: $\mathbf{u}+(\mathbf{v}+\mathbf{w}) =( \mathbf{u}+\mathbf{v})+\mathbf{w}$\\
+in the example of $\mathbb{R}^2$ this would mean 
+\begin{equation}
+ \left(\begin{array}{c}u_1\\u_2\end{array}\right)+ \left( \left(\begin{array}{c}v_1\\v_2\end{array}\right)+ \left(\begin{array}{c}w_1\\w_2\end{array}\right)\right)= \left(\begin{array}{c}u_1+(v_1+w_1)\\u_2+(v_2+w_2)\end{array}\right)
+\end{equation}
+ and since the components $u_i,v_i,w_i\in \mathbb{R}, i=1,2$ are real numbers, the law of associativity holds for vectors on $\mathbb{R}^2$
+\item Commutativity of addition: $\mathbf{v}+\mathbf{w}=\mathbf{w}+\mathbf{v}$ \\
+the same argument as for the associativity works again.
+\item Identity addition element: there exists a vector $\mathbf{0}\in V$ such that for any vector $\mathbf{v}\in V$ the equation holds: $\mathbf{0}+\mathbf{v} = \mathbf{v}$.\\
+In the example this $\mathbf{0}\, \, $- vector would be the following one:
+\begin{equation}
+\mathbf{0} =  \left(\begin{array}{c}0\\0\end{array}\right) \in \mathbb{R}^2 
+\end{equation}
+\begin{equation}
+\mathbf{0} +\mathbf{v} =  \left(\begin{array}{c}0\\0\end{array}\right) + \left(\begin{array}{c}v_1\\v_2\end{array}\right) =  \left(\begin{array}{c}v_1+0\\v_2+0\end{array}\right) =  \left(\begin{array}{c}v_1\\v_2\end{array}\right) =\mathbf{v}
+\end{equation}
+\item Additive inverse: For every vector $\mathbf{v}\in V$ there exists an additive inverse element $-\mathbf{v}$ such that $\mathbf{v}+(-\mathbf{v})=\mathbf{0}$. In $\mathbb{R}^2$ the additive inverse vector would be the one with the additive inverse components.
+\item $a(b\mathbf{v})=(ab)\mathbf{v}$
+\item $1\cdot\mathbf{v}$ with $1\in K$
+\item Distributivity with respect to vector addition: Let $a\in K$ be a scalar and $\mathbf{v},\mathbf{w}\in V$ vectors. Then the following equation holds:
+\begin{equation}
+a\cdot (\mathbf{v}+\mathbf{w})=a\cdot \mathbf{v} + a\cdot \mathbf{w}
+\end{equation}
+In the case of the 2-dimensional vector space $\mathbb{R}^2$, this would mean for a scalar $a \in \mathbb{R}$:
+\begin{equation}
+a\cdot (\mathbf{v}+\mathbf{w}) = a \cdot \left(    \left(\begin{array}{c}v_1\\v_2\end{array}\right) + \left(\begin{array}{c}w_1\\w_2\end{array}\right)            \right) = a \cdot  \left(\begin{array}{c}v_1+w_1\\v_2+w_2\end{array}\right) =  \left(\begin{array}{c}a(v_1+w_2)\\a(v_2+w_2)\end{array}\right) 
+\end{equation}
+and since distributivity holds on the field of real numbers $\mathbb{R}$, it also holds for vectors of $\mathbb{R}^2$.
+\item Distributivity with respect to scalar addition: Let $a,b \in K$ be two scalars and $\mathbf{v}\in V$ a vector. Then the following equation holds:
+\begin{equation}
+(a+b)\mathbf{v} = a\mathbf{v} + b\mathbf{v}
+\end{equation}
+The analogy in $\mathbb{R}^2$ is similar to the distributivity with respect to vector addition.
+\end{itemize}
+
+Now that we know what a vector space is and how we can imagine one, it is time for another important concept that we will need to understand, what a quantum state. I am talking about the basis of a vector space.
+
+\subsection{The basis of a vector space}
+Let's start right with the definition of a basis.\\
+The Basis $B$ of a vector space $V$ is a subset of $V$ with the following properties:
+\begin{itemize}
+\item it is linear independent
+\item it spans the whole vector space
+\end{itemize}
+
+Okay, we need to take a look at those abstract formulations again. Let's start with the linear independence.\\
+To understand, what linear independent vectors are, we first have to define, what a linear combination of vectors is. \\
+Let $V$ be a vector space over the field $K$, let $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_n}\in V$ be a list of vectors and $a_1,a_2,...,a_n$ a list of scalars. A linear combination is defined as the sum:
+\begin{equation}
+\sum _{i=1}^{n}a_i \mathbf{v_i} = a_1\mathbf{v_1}+a_2\mathbf{v_2}+...+a_n\mathbf{v_n}
+\end{equation}
+A vector $\mathbf{v}\in V$ is called linear dependet from some other vectors $\mathbf{v_i}\in V, \, \, \, i=1,2,...,n$ if it can be expressed as a linear combination of those vectors:
+\begin{equation}
+\mathbf{v} = a_1\mathbf{v_1}+a_2\mathbf{v_2}+...+a_n\mathbf{v_n}
+\end{equation}
+To make this a little more clear, we return to the well known example of the $\mathbb{R}^2$ vector space. Let's take for example the following three vectors:
+\begin{equation}
+\mathbf{v} =  \left(\begin{array}{c}2\\3\end{array}\right) \, \, \, 
+\mathbf{v_1} =  \left(\begin{array}{c}1\\0\end{array}\right) \, \, \,
+\mathbf{v_2} =  \left(\begin{array}{c}0\\1\end{array}\right)
+\end{equation}
+
+The vector $\mathbf{v} $ can be written as linear combination of the two vectors $\mathbf{v_1}, \mathbf{v_2}  $:
+\begin{equation}
+\mathbf{v} =  \left(\begin{array}{c}2\\3\end{array}\right) = 2 \left(\begin{array}{c}1\\0\end{array}\right) +
+3 \left(\begin{array}{c}0\\1\end{array}\right) = 2 \mathbf{v_1} + 3 \mathbf{v_2}
+\end{equation}
+This means that the vector $\mathbf{v}$ is linear dependent on the other two vectors.
+A set of vectors $\{v_1,v_2,...,v_n\}$ is said to be linear independent, if no vector can be written as a linear combination of the other vectors in this set. Or, written as an equation:
+\begin{equation}
+a_1\mathbf{v_1}+a_2\mathbf{v_2}+...+a_n\mathbf{v_n}=0 \, \, \, only \,\,\, if \, \, \, a_i=0 \, \, \, for \,\, all \, \, i =1,2,...n
+\end{equation}
+A linear independent set of vectors on the vector space $\mathbb{R}^2$ would be the two vectors
+\begin{equation}
+\mathbf{v_1} =  \left(\begin{array}{c}1\\0\end{array}\right) \, \, \,
+\mathbf{v_2} =  \left(\begin{array}{c}0\\1\end{array}\right)
+\end{equation}
+\begin{equation}
+a_1\mathbf{v_1} + a_2 \mathbf{v_2} = a_1  \left(\begin{array}{c}1\\0\end{array}\right) +
+a_2 \left(\begin{array}{c}0\\1\end{array}\right) 
+\end{equation}
+This results in the two equations:
+\begin{equation}
+a_1\cdot 1 + a_1 \cdot 0 = a_1 \cdot 1 = 0
+\end{equation}
+\begin{equation}
+a_2\cdot 0 + a_2 \cdot 1 = a_2\cdot 1 \  = 0
+\end{equation}
+Thus the two scalars can only fulfill equation 1.19 if they are zero. This is why the two vectors are linear independent.\\
+Let's get to the second part of the definition of a basis in a vector state. It says, that a set of basis vectors needs to span the whole vector space.\\
+This means, that every vector $\mathbf{v}\in V$ can be written as a linear combination of the basis vectors.\\
+Let's say we have a set of basis vectors $\{b_1,b_2,...,b_n\}$. For every $\mathbf{v}\in V$ we can find a set of scalars 
+$\{\lambda_1,\lambda_2,...,\lambda_n\}$ such that the following equation holds:
+\begin{equation}
+\mathbf{v} = \sum _{i=1}^{n}\lambda _i b_i
+\end{equation}
+Returning to the well known $\mathbb{R}^2$ and the two vectors
+\begin{equation}
+\mathbf{v_1} =  \left(\begin{array}{c}1\\0\end{array}\right) \, \, \,
+\mathbf{v_2} =  \left(\begin{array}{c}0\\1\end{array}\right)
+\end{equation}
+we can see that every vector in $\mathbb{R}^2$ can be written as a linear combination of those two. So the set of vectors ${\mathbf{v_1},\mathbf{2}}$ is not only linear independent, but also spans the whole $\mathbb{R}^2$ space. These two vectors are a basis of $\mathbb{R}^2$.\\
+The number of basis vectors in a vector space determines the dimension of the space.\\
+If we take the vector space $\mathbb{R}^2$, its basis would be the two vectors in 1.20. 
+
+
+
+To define a quantum state mathematically, we shortly have to look at a special type of vector spaces: the so-called Hilbert spaces.
+\subsection{Hilbert spaces}
+When von Neumann and Dirac formulated a mathematical description of quantum mechanics, they chose Hilbert spaces as the type of vector space needed for quantum physical computations.\\
+In short, a Hilbert space is a vector space that is complete and equipped with an inner product.\\
+Alright, so let's workt through those two new terms:
+\begin{itemize}
+\item complete
+\item inner product
+\end{itemize}
+Having a set of elements, that is complete simply means that it is possible to do calculus with the elements of this set. So let's say we have a set of functions $V={f: f:\mathbb{R}\rightarrow \mathbb{R}}$ which map a real number $x\in \mathbb{R}$ on another real number $f(x)=y\in \mathbb{R}$. We can make the set of real valued functions a vector space by defining vector addition and scalar multiplication on $V$:
+\begin{itemize}
+\item vector Addition: $+:V\times V \rightarrow V$\\
+Let $f,g\in V$ be two real valued functions. The addition would be defined by adding the real values $f(x)+g(x)$
+\item Scalar Multiplication: $\cdot:V\times V \rightarrow V$\\
+A scalar would be any real number $\lambda \in \mathbb{R}$, so the scalar multiplication would be just multiplying one real number by another $\lambda f(x)$
+\end{itemize}
+So a set of functions can be a vector space, and if you work with spaces like that, it's good to be able to differentiate or integrate those functions. This is why completeness is required.\\
+The second condition for a Hilbert space was the inner product. A simple example for a Hilbert space is the 3-dimensional euclidean space $\mathbb{R}^3$. Vectors in $\mathbb{R}^3$ are written like those in $\mathbb{R}^2$ but with an extra component for the extra dimension.\\
+An inner product of two vectors would be defined the following way:
+\begin{equation}
+\mathbf{x},\mathbf{y}\in V\, \, \, \, \mathbf{x}\cdot \mathbf{y} = 
+\left(\begin{array}{c}x_1\\x_2\\x_3 \end{array}\right) \cdot \left(\begin{array}{c}y_1\\y_2\\y_3 \end{array}\right) = 
+x_1y_1 + x_2y_2 + x_3y_3 = \sum_{i=1}^{3}x_iy_i
+\end{equation}
+This is also known as the scalar product, since multiplying those two vectors results in an element of the field $\mathbb{R}$ which is a scalar.\\
+
+
+
+Now that we know what a Hilbert space is, we can return to the mathematical definition of a quantum state.
+\subsection{Quantum states and the superposition principle}
+A quantum state is a vector in a Hilbert space, which can be written as the linear combination of a set of basis vectors. The basis vectors correspond to the classical states of the physical system.\\
+In Quantum mechanics, one uses the so-called Dirac-notation for the state vectors. 
+\begin{equation}
+\ket{\phi} = a_0 \ket{0}+a_1 \ket{1}+...+a_{N-1} \ket{N-1}
+\end{equation}
+In this equation, $\ket{\phi}$ is the vector in a N-dimensional (since there are N basis vectors) Hilbert space $H$ that represents the quantum state of the system. The classical states of the system are represented by the set of basis vectors $\ket{0},\ket{1},...,\ket{N-1}$ and the coefficients $a_0,a_1,...a_{N-1}$ are called amplitudes.\\
+The fact that the state vector is a linear combination of the classical states of the system is the mathematical way to formulate the superposition principle: a quantum system can be in more than one classical state at the same time.\\
+Usually one can write the state vector $\ket{\phi}$ as a column vector with the amplitudes being the components.
+\begin{equation}
+\ket{\phi}   =   \left(\begin{array}{c}a_0\\a_1\\.\\.\\.\\a_{N-1}\end{array}\right)
+\end{equation}
+In the next section we will find out which physical meaning the amplitudes of the state vector have.
+
+\newpage
+
+\section{What to do with a quantum state}
+\begin{tcolorbox}
+This section will be all about the things we can do with a quantum state. We will learn what happens, when we \textit{measure} a quantum state and how to interpret the \textit{amplitudes} of a quantum state. In the end we will see that it is possible to act on a quantum state without actually destroying it: by applying \textit{unitary operations}.
+\end{tcolorbox}
+\subsection{Measurement}
+In the section about the double slit experiment we learnt that electrons - or quantum particles in general - do not behave like we classically imagined them to behave. We cannot see them as tiny little balls flying around but have to see them as waves propagating through space and being able to interfer.
+Quantum particles seem to move through both slits at the same time, they are in more than one classical state at the same time.\\
+Let's denote those classical states $\ket{0}$ for the upper slit and $\ket{1}$ for the lower slit.\\
+The state of the electron can then be written in the form
+\begin{equation}
+\ket{\phi}_{electron} = a_0\ket{0} + a_1\ket{1}
+\end{equation}
+with amplitudes $a_0,a_1$.\\
+What happens when we want to observe the electron as it passes through both slits at the same time?\\
+Let's assume we have a detector that we position right behind the double slit wall. The detector is able to measure through which one of the slits the electron flies (see Figure \ref{bild 10}).
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild10.jpeg}
+  \caption{Double slit experiment with electrons, again, but this time we put a detector behind the double slit wall, to observe which one of the slits the electrons take. It seems to be  a coincidence, which slit the electrons take and after some time one would see, that they did not produce an interference pattern. It looks like they behaved like tiny, classical balls again. The process of measuring their state has destroyed their state.}
+  \label{bild 10}
+\end{figure}
+
+But the electrons don't want to be observed. As soon as the detector is activated the electrons stop their wave-like behavior and only pass through one single slit. They act like classical particles again, like tiny balls flying around.\\
+This is another fundamental principle in quantum physics.\\
+Observing a quantum system will result in the measurement of one of the classical states - the quantum system would never let us observe the superposition state.\\
+When you measure a quantum state $\ket{\phi}$, which is a superposition of classical states $\ket{0},\ket{1},...,\ket{N-1}$, it \textit{collapses} to one of the classical states.\\
+
+
+\begin{mybox}{blue}{\textbf{Measurement of a quantum system}}
+A quantum system in general will be in a superposition state of some number of classical state vectors. As soon as one observes or measures the state of a quantum system, the state \textit{collapes} into one of the classical states. This means that is not possible to actually \textit{observe} a superposition state.
+\end{mybox}
+
+We cannot say with certainty, to which classical state the quantum state will collaps.\\
+We cannot precisely predict, through which one of the slits the electron will come. \\
+But we can say, with what \textit{probability} $\ket{\phi}$ will collaps into a certain classical state $\ket{i}$, $i\in {0,1,...,N-1}$. The probability, in which state a superposition state will collaps after measurement - is given by the so-called \textit{Born rule}. Let's have a quick look.
+
+\subsection{The Born rule}
+The Born rule states that the amplitudes $a_0,a_1,...,a_{N-1}$ of a superposition quantum state
+\begin{equation}
+\ket{\phi} = a_0\ket{0} + a_1\ket{1} + .... + a_{N-1}\ket{N-1}
+\end{equation}
+should be interpreted as \textit{probability amplitudes}. In case the quantum state is measured, probability amplitude tells us how probable it is for the superposition state to collaps into a certain classical state.\\
+The probability of the state $\ket{\phi}$ collapsing into the state $\ket{i}$ is given by the term $p_i|a_i|^2$.\\
+Let's say for example we work with the state 
+\begin{equation}
+\ket{\phi} = \frac{1}{\sqrt{3}}\ket{0} + \sqrt{\frac{2}{3}}\ket{1}
+\end{equation}
+and we measure it. It will collaps into one of the two classical states, with a probability of $\frac{1}{3}$ into $\ket{0}$ and with a probability of $\frac{2}{3}$ into the state $\ket{1}$.\\
+In order to be interpreted as a set of probability amplitudes, the coefficients have to satisfy the following equation:
+\begin{equation}
+\sum_{i=0}^{N-1}|a_i|^2 = |a_0|^2 + |a_1|^2 + ....+ |a_{N-1}|^2 = 1
+\end{equation}
+This equation just ensures that the total probability will always be exactly 1. When a superposition state is observed, it will collaps into at least one of the classical states that form the basis of the Hilbert space. \\
+
+\begin{mybox}{blue}{\textbf{The Born Rule}}
+After measuring a quantum  state, it will collaps into one of the classical states. According to Born's rule, the amplitudes of a superposition state tell us how probable it will be that the  state will collaps into this specific classical state. 
+\end{mybox}
+
+\subsection{Unitary evolution}
+We cannot only observe  a quantum state (and by doing so destroying it), but we can as well manipulate it by applying some operation to it and change it to another state. \\
+Let's assume we have the state
+\begin{equation}
+\ket{\phi} = a_0\ket{0} + a_1\ket{1} + .... + a_{N-1}\ket{N-1}
+\end{equation}
+and we apply some operation $U$ to change it to the state:
+\begin{equation}
+U\ket{\phi} = \ket{\psi} = b_0\ket{0} + b_1\ket{1} + .... + b_{N-1}\ket{N-1}
+\end{equation}
+We can write the two states $\ket{\phi}, \ket{\psi} $ as column vectors with the probability amplitudes as components. This changes the transformation equation to the following form:
+\begin{equation}
+U\ket{\phi}  = U   \left(\begin{array}{c}a_0\\a_1\\.\\.\\.\\a_{N-1}\end{array}\right) =
+  \left(\begin{array}{c}b_0\\b_1\\.\\.\\.\\b_{N-1}\end{array}\right)
+\end{equation}
+To transform the vector $\ket{\phi}$ into the vector $\ket{\psi}$, $U$ has to be a $N\times N$ matrix. To visualise that, we will take a look at the example of a quantum system with two basis states, where we have a 2-dimensional Hilbert space representing the quantum system.\\
+Let's assume our transformation operation is a $2\times 2$ matrix
+\begin{equation}
+U =  \left(\begin{array}{ccc} 
+ 0&1\\1&0
+ \end{array}\right) 
+\end{equation}
+and we apply this operation to the state vector $\ket{\phi}=\left(\begin{array}{c} 1\\0 \end{array}\right) = \ket{0}$, then we get the result:
+\begin{equation}
+U \ket{\phi}=  \left(\begin{array}{ccc} 
+ 0&1\\1&0
+ \end{array}\right)  \left(\begin{array}{c} 1\\0 \end{array}\right) =
+ \left(\begin{array}{c} 0\\1 \end{array}\right) = \ket{1}
+\end{equation}
+The transformation operation $U$ changes the vector $\ket{0}$ to the state vector $\ket{1}$.\\
+Matrix transformations that manipulate quantum states are \textit{unitary transformations}.\\
+Unitary transformations always have an inverse element $U^{-1}$ such that $UU^{-1}=\mathbf{1}$ with $\mathbf{1}$ being the $N \times N$ identity matrix.\\
+The fact that unitary matrices or unitary transformations have an inverse means that such operations can be undone. If one manipulates a quantum state $\ket{\phi}$ by applying the operation $U$ to it and changing it to the state vector $\ket{\psi}$, one can always undo that process by applying the inverse transformation  $U^{-1}$ to $\ket{\psi}$.\\
+This is the key difference between measurement and unitary transformation.\\
+
+\begin{mybox}{blue}{\textbf{Unitary evolution}}
+Instead of destroying a quantum state by measuring it, we could apply \textit{unitary transformations} to change it without destroying it. Unitary transformations are (other than measuring a state) reversible and thus important for processing information in quantum computers.
+\end{mybox}
+
+When measuring a quantum state, it collapses to a classical state and the quantum state cannot be reconstructed again. Measurement is an irreversible process. A unitary transformation is not. Those two processes will later be important to develop the quantum physical analogy of logic gates.
+
+\newpage
+
+
+
+\section{Compound systems and entanglement}
+\begin{tcolorbox}
+In this section we will learn how to describe systems that consist of more than one quantum system: \textit{compound systems}. After studying the mathematics of compound systems, we will be able to apply them on so-called \textit{entangled states}. Compound systems that are in an entangled state will be of great importance later when we will come to the quantum computing part of this course.
+\end{tcolorbox}
+\subsection{Compound systems and the tensor product}
+Almost always when doing quantum computing we will be interested in describing not only one quantum system but two or more quantum systems at the same time. A quantum system that consists of multiple sub-systems, is called a \textit{compound system}. And a compound system is in a compound state.\\
+But how do we describe the state of a compound quantum system?\\
+Let's assume that we have two quantum systems A and B. The system A shall be in the state $\ket{\psi}$ and the state B shall be in the state $\ket{\phi}$. The compound system is said to be in the state
+\begin{equation}
+\ket{\psi}\otimes \ket{\phi}
+\end{equation}
+with $\otimes$ denoting the tensor product. Let's have a quick look at what a tensor product is.\\
+A tensor product is a special type of product between matrices. Consider a $n\times m$ matrix A and a $p \times l$ matrix B. The tensor product between theese two matrices will result in a $np \times ml$ matrix.\\
+For example, if A and B are both $2 \times 2$ matrices, the tensor product between those two would be a $4\times 4$ matrix.\\
+The actual product is defined in the following way:
+\begin{equation}
+A\otimes B =  \left(\begin{array}{ccc} 
+ A_{11}B&...&A_{1m}B\\
+ A_{21}B&...&A_{2m}B\\
+ .& & .\\
+  .& & .\\
+   .& & .\\
+   A_{n1}B&...&A_{nm}B
+ \end{array}\right) 
+\end{equation}
+Since this definition looks pretty complex we will break it down in an example.
+Let A and B be $2\times 2$ matrices:
+\begin{equation}
+A =  \left(\begin{array}{ccc} 
+ 2&2\\
+ 2&-2
+ \end{array}\right) \, \, \, \,
+ B =  \left(\begin{array}{ccc} 
+ 0&1\\
+ -1&0
+ \end{array}\right) 
+\end{equation}
+The tensor product of these two matrices would result in the following $4\times 4 $ matrix:
+\begin{equation}
+A \otimes B =  \left(\begin{array}{ccc} 
+ 2&2\\
+ 2&-2
+ \end{array}\right) \otimes
+ \left(\begin{array}{cccc} 
+ 0&1\\
+ -1&0
+ \end{array}\right) =
+ \left(\begin{array}{cccc} 
+ 0&2&0&2\\
+ -2&0&-2&0\\
+  0&2&0&-2\\
+   -2&0&2&0\\
+ \end{array}\right) 
+\end{equation}
+Since vectors are matrices too (a vector is a matrix with just one column), we can apply the tensor product to them. Take for example the tensor product between the two vectors:
+\begin{equation}
+  \left(\begin{array}{c}1\\0\end{array}\right) \otimes   \left(\begin{array}{c}0\\1\end{array}\right) =
+    \left(\begin{array}{c}0\\1\\0\\0\end{array}\right) 
+\end{equation}
+So now we know what the tensor product is and how it is defined for matrices and vectors. But how does that apply to compound quantum systems?\\
+Assume, the system A is represented by a n-dimensional Hilbert space $H_n$ with n basis vectors ${\ket{x_i};i=1,...,n}$ and the system B corresponds to an m-dimensional Hilbert space $H_m$ with m basis vectors ${\ket{y_j};j=1,...,m}$. The two states $\ket{\psi}, \ket{\phi}$ can  - according to the superposition principle - be written as a linear combination of the basis vectors.
+\begin{equation}
+\ket{\psi} = \sum _{i=1}^{n}\alpha_i\ket{x_i} \,\,\,\,\,\,   \ket{\phi} = \sum _{j=1}^{m}\beta_j\ket{y_j} 
+\end{equation}
+
+The compound system $A \otimes B = H_n \otimes H_m$ (where $H_n \otimes H_m$ is the set of state vectors, that are elements of the compound system) would be in the state (The tensor product between state vectors $\ket{\psi}\otimes \ket{\phi}$ is often abbreviated by $\ket{\psi} \ket{\phi}$ or  
+$\ket{\psi \phi}$):
+\begin{equation}
+\ket{\psi} \otimes \ket{\phi}=\ket{\psi}\ket{\phi} =
+\left(\sum _{i=1}^{n}\alpha_i\ket{x_i} \right)
+\otimes
+\left(\sum _{j=1}^{m}\beta_j\ket{y_j} \right) = 
+\sum _{i=1}^{n} \sum_{j=1}^{m}\alpha_i\beta_j\ket{y_j} \ket{x_i}  
+\end{equation}
+Okay this looks pretty complex so we better look at an example to better understand that formula. Let's say both quantum systems A and B are represented by the 2-dimensional Hilbert space $H_2$ with the two basis vectors ${\ket{0},\ket{1}}$. So the compound system would be $H_2 \otimes H_2$. Assume that A is in a superposition state $\ket{\psi}=\frac{1}{\sqrt{2}}\left( \ket{0}+ \ket{1} \right)$ and B in the classical state $\ket{\phi}=\ket{0}$. In which state would the compound system $A \otimes B$  be?\\
+
+
+\begin{mybox}{blue}{\textbf{Compound quantum systems}}
+A \textit{compound system} is a combination of many quantum systems, that is mathematically described by the \textit{tensor product} of the underlying Hilbert spaces. Describing a bunch of electrons as one connected system would happen by applying the compound system formalism.
+\end{mybox}
+
+\begin{equation}
+\begin{split}
+\ket{\psi}\ket{\phi} =\frac{1}{\sqrt{2}}\left( \ket{0}+ \ket{1} \right) \otimes \ket{0}=  \\
+= \frac{1}{\sqrt{2}}\left( \ket{0}\ket{0}+ \ket{1} \ket{0}\right) =\\
+\frac{1}{\sqrt{2}}\left(    \left(\begin{array}{c}1\\0\end{array}\right) \otimes   \left(\begin{array}{c}1\\0\end{array}\right)  +     \left(\begin{array}{c}0\\1\end{array}\right) \otimes   \left(\begin{array}{c}1\\0\end{array}\right) \right) =\\
+\frac{1}{\sqrt{2}}\left(   \left(\begin{array}{c}1\\0\\0\\0\end{array}\right) +  \left(\begin{array}{c}0\\0\\1\\0\end{array}\right) \right) = \frac{1}{\sqrt{2}}  \left(\begin{array}{c}1\\0\\1\\0\end{array}\right) 
+\end{split}
+\end{equation}
+
+The question now arises, if we can write any state vector in a compound quantum system as the tensor product of sub-space  vectors. The answer is no, there exist state vectors, that cannot be \textit{decomposed} into the tensor product of sub-vectors. Such a state is called \textit{entangled}. Let's have a closer look at those states.
+
+\subsection{Entangled States}
+
+We look at the compound system $H_2\otimes H_2$ again, but this time we assume that it is in the superposition state
+\begin{equation}
+\ket{\psi} = \frac{1}{\sqrt{2}} (\ket{00}+\ket{11})
+\end{equation}
+Can we write this state vector as a tensor product of two separate vectors $\ket{\mu}, \ket{\tau}\in H_2$ with 
+$\ket{\mu}=a_0\ket{0}+a_1\ket{1}$ and $\ket{\tau}=b_0\ket{0}+b_1\ket{1}$? If it is possible, then this state vector would be called \textit{decomposable}.\\
+\begin{equation}
+\begin{split}
+\ket{\psi} = \frac{1}{\sqrt{2}} (\ket{00}+\ket{11}) \stackrel{!}{=} \ket{\mu}\otimes \ket{\tau} =\\
+\left( a_0\ket{0}+a_1\ket{1} \right) \otimes \left( b_0\ket{0}+b_1\ket{1} \right)=\\
+a_0b_0 \ket{00} + a_0b_1 \ket{01} + a_1b_0 \ket{10} + a_1b_1\ket{11}
+\end{split}
+\end{equation}
+For this equation to work the coefficients must fulfill the following conditions:
+\begin{equation}
+a_0b_0 = a_1b_1 = \frac{1}{\sqrt{2}} 
+\end{equation}
+\begin{equation}
+a_0b_1 = a_1b_0 = 0
+\end{equation}
+Equation 1.49 only works, if at least one number is zero, $a_1b_0 = 0$ is true, if either $a_1$ or $b_0$ equals zero. But if only one of these coefficients equals zero, then equation 1.48 would not work anymore. Therefore the superposition state from equation 1.46 cannot be written as the tensor product of two sub-space vectors $\Rightarrow$ it is not decomposable.\\
+States  that are not decomposable are called \textit{entangled}. The two quantum systems that form a compound system share a state vector and are linked to each other.\\
+Compound quantum systems that are entangled have a pretty interesting property when it comes to measurement.\\
+What will for example happen, when we go into the system A and measure the entangled state?\\
+By measuring, the system A will collaps into one of the classical states $\ket{0},\ket{1}$, and the whole compound system will collaps into either $\ket{00}$  or  $\ket{11}$. What happens in one system, influences the events in the other system.\\
+The crazy thing about that is, that it does not matter how far apart the two quantum systems are from each other. As long as they are entangled, they can be at different ends of the universe but would simultaneously collaps into a classical state once one of the systems is observed.\\
+
+\begin{mybox}{blue}{\textbf{Entangled states}}
+Two quantum systems can be linked together in a way, that they both influence the other system. What happens in one system directly impacts what happens in the other system. This link between quantum states is known as \textit{entanglement} (or as Einstein called it: spooky action at a distance).
+\end{mybox}
+
+Let's do a real life example and take the well-known electron to explain entanglement. Electrons have a quantum property, that physcists call spin. You could somehow compare that property to the angular momentum of a rotating body, meaning that the spin of an electron contains information about its rotation. For our purposes it is not important to know what the spin is exactly. It will be enough to know that the spin of an electron is a quantum state.\\
+The spin of an electron can either point upwards or downwards (\textit{spin-up} and \textit{spin-down}). \\
+Assume, we have entangled two electrons and they are in a superposition state
+\begin{equation}
+\ket{\phi}_{electron} = \frac{1}{\sqrt{2}} (\ket{\uparrow \downarrow} + \ket{\downarrow \uparrow})
+\end{equation}
+with $\ket{\uparrow}$ being the spin-up state and $\ket{\downarrow}$ the spin-down state.
+If we measure the first electron and observe that it has a spin-up state, then the other electron will instantaneously collaps to the spin-down state.\\
+So quantum particles or quantum systems cannot only be in two classical states at the same time, but they can also be entangled to each other and seem to be able to transfer information with a velocity greater than the speed of light.
+This "spooky action at a distance" (how Einstein described entanglement) is a very important concept in quantum computing, that we will later use to understand how quantum teleportation and superdense coding work.
+
+\newpage
+
+\chapter{From QuBits to Quantum Computing}
+Now that we learned a little bit about quantum physics and how strange the results of experiments in this area are, we are ready to face the transition to quantum computing. How can we use our freshly learned knowledge to find out what a quantum computer would be capable of doing?\\
+Before we can do so, we will take a look at classical computers and how they work. And as we all heard somewhere at some time in the past: Computers work with 1's and 0's, they work with so-called \textit{bits}.
+
+\section{Classical Bits and Qubits}
+Computers work with bits, right? What is a \textit{bit} actually?\\
+Classical Bits, or short just bits, are the unit of information used in modern day computers and in digital technology in general. Any type of information that you can imagine is encoded into a bit, videos, pictures, text, calculations.\\
+A bit can take one of two possible values. It can either be 1 or 0. That means that any type of information that you can imagine can be represented by a sequence of 1's and 0's: $\{1001010111010110101000100101001001111\}$ is an example for a sequence of bits representing some information.\\
+When it comes to the processing of information, the change of any information is a change of the bit values in the sequence of bits. Watching a video or adding two numbers together starts with a sequence of bits, that is changed into another sequence of bits:
+\begin{equation}
+\{1011010100101001010101\} \rightarrow \{10101010101010001010 \}
+\end{equation}
+In digital technology, the bit with the value 1 corresponds to"electrical current \textit{on}", wheras the bit value 0 corresponds to "electrical current \textit{off}.\\
+The best way to visualize that is by showing it graphically, as you can see in Figure \ref{bild11}.
+There you can see an electric circuit powered by a battery. The current flows through a lamp and then through a strange looking device, which is called \textit{transistor}. \\
+Transistors are very important devices in modern electronics, since they are the cornerstore of digital technology. All logic circuits (that actually make a computer so powerful) are made of transistors.\\
+So let's have a quick look at how a transistor works.\\
+A transistor has three pins. The one in the middle labelled with a B is called the \textit{basis}, the one labelled with a C is called the \textit{collector} and the one with the E the \textit{emitter}. You can imagine the collector as the entrance to the transistor and the emitter as the exit. The current flows through the entrance (collector C) into the transistor and wants to go through the exit (emitter E). But to do so, there has to be another current from the basis B, to open the gate to the exit E. This is how a transistor works.\\
+If there is a current in the basis, the current can flow from the collector to the emitter and the whole circuit is closed, such that the lamp is burning. If there is no current in the basis, the flow from the entrance to exit is not possible and the lamp remains dark.This is how we can imagine a bit.\\
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild11.jpeg}
+  \caption{This is how a simple circuit with a transistor in it. The current flows from through the lamp and then into the collector C. If there is current in the basis B, the flow from C can go on and leave through the emitter E to close the circuit. If there is current in B, the lamp would shine and represent the bit with value 1. If there is no current at the basis, then the lamp would remain dark, representing a bit with value 0.}
+  \label{bild11}
+\end{figure}
+
+A shining lamp represents the bit with value 1, a dark one the bit with value 0. \\
+There can either be a current at the basis b (and the lamp shines) or there is no current and the gate is closed.\\
+The bit can thus take only one value, either 1 or 0.\\
+It cannot be both.\\
+
+\begin{mybox}{blue}{\textbf{Classical Bits}}
+A \textit{classic bit} or just \textit{bit} is the basic unit of information in digital technology. It can take one of two possible values, either 1 or 0. In electronic circuits, bit values are represented by \textit{current on/ current off}.\\
+Flowing electricity corresponds to a bit with value 1. An off electric current represents a bit with value 0.
+\end{mybox}
+
+\newpage
+But a quantum bit can be both. And this is how we can define quantum bits.\\
+A \textit{quantum bit} - or from now on short a \textit{qubit} - is a superposition of the two classical states $\ket{0}$ and $\ket{1}$, which means it is a superposition of the two classical bit values.\\
+A qubit can be 1, 0 or some superposition of both.\\
+To be more precise, a qubit is defined as a 2-dimensional Hilbert space (denoted with $H_2$) with the basis vectors $\{\ket{0},\ket{1}\}$.\\
+This means that in quantum computing, information will no longer be processed by the concept "current on/current off", but by qubits, which are quantum systems that have to classical states as basis vectors.\\
+
+\begin{mybox}{blue}{\textbf{Quantum Bits}}
+In order to do \textit{quantum computing}, we will no longer just stick to the classical bits as a unit for information, since they can only take two possible values 1 and 0. Instead we define a \textit{quantum bit} to be a quantum system, which has two classical states as basis vectors. This means, that a qubit can be in a superposition state of those two basis vectors.\\
+When the qubit gets measured, it collapses into one of the two classical states - it turns into a classical bit.
+\end{mybox}
+
+
+
+If we want to do quantum computing, we are going to need more that one qubit. Just like in modern day computers, one bit is not enoguh to save and at the same time process information.\\
+When we are working with more than one qubit, we are having many quantum systems which together form a compound system. And as we learned in the last chapter, a compound system is represented by the tensor product of the underlying Hilbert spaces (the Hilbert spaces representing each single quantum system). Every qubit we are working with is represented by a 2-dimensional Hilbert space $H_2$. So the compound system would be described by the tensor product $H_2\otimes ... \otimes H_2$. When it comes to quantum computing, a compound system of many qubits has the name \textit{quantum register} with dimension $2^m$, where m is the number of qubits in the compound system.\\
+
+\begin{mybox}{blue}{\textbf{Quantum Register}}
+One qubit is not enough. We will need many qubits in order to do quantum computing, and many qubits together can be seen as compound quantum system. A compound system of  $m$ qubits is called a \textit{quantum register} with dimension $2^m$. Every qubit is represented by a 2-dimensional Hilbert space $H_2$. The quantum register is represented by the tensor product of $m$ 2-dimensional Hilbert spaces.
+\end{mybox}
+
+So how could we implement a qubit or even a register of qubits in real life?\\
+This is what physicists have been working on for some decades now and there has been some progress on this field of research. One possible way to experimentally realise a qubit or even a regsiter of qubits is by using so-called $\textit{ion traps}$.\\
+Imagine an atom. Atoms consist of a positively charged nucles and in general an equally negative charged electron cloud surrounding the nucleus.\\
+By using a laser we could kick a single electron out of the cloud in order to make the atom apositively charged ion, as you can see in Figure \ref{bild12}\\
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild12.jpeg}
+  \caption{A laser is shot onto an atom and kicks an electron out of the electround cloud which surrounds the nucleus of the atom. This process is called \textit{ionization}. Now that the whole atom is electrically charged it reacts to the use of electric fields.}
+  \label{bild12}
+\end{figure}
+
+Since the atom now has an electrical charge, it reacts to the use of electrical fields.\\
+And that's where the actual ion trap comes into play.\\
+An ion trap is basically nothing else than two electrodes facing each other with a strong, electric field between them. This electric field is strong enough, to capture the wanted ions and hold them in a stable position (see Figure \ref{bild15}).
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild15.jpeg}
+  \caption{This is how one could simply imagine an ion trap in a schematic way. Apositively charged ion is trapped in the electric field between to electrodes.}
+  \label{bild15}
+\end{figure}
+
+Since we don't want the captured ions to interact with anything, we put the ion trap into a vacuum chamber.\\
+Now the ions captured in the trap are cooled down by a laser to a temperature of almost 0 Kelvin ($-273^{\circ} $ Celsius).\\
+One element, which is used in ion form to create qubits in an ion trap, is Ytterbium. \\
+After Ytterbium is cooled down and in its groundstate, one can see that this groundstate is split up into two sub-states (due to the spin of the nucleus). Remember the definition of a qubit. A quantum bit is a quantum system with to basic states. This means that the quantum system can only collaps into one of two possible states.  \\
+The atom can be seen as a quantum system, which is the qubit and the two states of the groundstate are the classical states of the qubit (the states, the qubit can collaps into, when the qubit is measured).\\
+
+\begin{mybox}{blue}{\textbf{Qubits in experiment}}
+How to build single qubits and registers is part of actual research. One way of realizing qubits would be by using ion traps. An \textit{ion trap} is just an electrical field between two electrodes, that keeps some ions in a stable floating position. Then they are cooled down to almost 0 Kelvin. such that they remain calm. The whole setup is put into a vacuum chamber, so no kind of interaction can disturb the compound system of ions. \\
+The states of the ions serve as qubits and can be changed by laser interaction.
+\end{mybox}
+
+So instead of encoding our information into bits, we can encode them into quantum bits. But information needs to be processed, and this means it needs to be changed. As we remember from the beginning of this section, in digital technology any information is represented by a sequence of 1's and 0's. Processing the information would mean changing the values of the single bits to get another sequence of 1's and 0's.\\
+The quantum computing analogon would be having a register of qubits and changing the states of every single qubit. In the case of the ion trap qubit, changes of the state can be done by a laser. But how do we need to change the states of qubits in order to do computations?\\
+Therefore we are first going to have a look at how classical computers process information on a fundamental level.
+
+\newpage
+
+\section{Logic gates and circuits}
+\begin{tcolorbox}
+In this section we will learn, what \textit{logic gates} are and how they are used to change sequences of bits. We will discuss the three most important logic gates AND, OR and NOT. In the end we will find out that combining logic gates gives a so-called \textit{circuit} and that any circuit can be constructed by using only these three gates.
+\end{tcolorbox}
+
+As we learned in the last chapter, any form of information can be represented by a sequence of bits. Processing that information means to change the sequence of bits to another sequence of bits. In order to change the whole sequence we have to change the single bits.\\
+Changing single bits is achieved by applying \textit{logic gates} to the sequence of bits. A logic gate is an operation, that acts on one or more bits. They are the fundamental building blocks of digtal information processing. So let's have a look at the most important logic gates.
+
+\subsection{The NOT-Gate}
+The most simple logic gate is the so-called NOT-Gate, sometimes also called an Inverter. The NOT-Gate acts on a single bit and has a single bit as an output. It \textit{inverts} the value of the input bit, that's why it's also referred to as an inverter. If the input bit has the value 0, the output bit would take the value 1 and vice versa. In the upper-left-hand corner of Figure \ref{bild16} you can see its symbol and below that its truth table.\\
+On the right side of Figure \ref{bild16} we can find the circuit diagram, which shows how we could implement a NOT-Gate in real life. The input would be the basis of the transistor, the output leads away from the collector of the transistor.\\
+If there is current on the basis of the transistor, then the value of the input bit A will take the value 1. This means, that no current can flow to the output pin, since the current flows through the transistor. No current in the output pin means that the bit value of the output is 0. \\
+If there is no current at the basis of the transistor, then the input bit has the value 0. The current is not able to get from the collector to the emitter so it takes the free way to the output, which has then the bit value 1.\\
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild16.jpeg}
+  \caption{The symbol for the NOT-Gate (upper-left-hand corner) with one input and one output. The truth table (below the symbol) shows how the NOT-Gate works. If the input A has the value 0, the output OUT takes the value 1 and vice versa. On the right side you can see, how a NOT-Gate would be implemented with a transistor. If the basis of the transistor has current, then the input bit value would be 1. The current flows from the collector to the emitter and not to the output, thus the output takes the value 0. No current in the basis would block the transistor, such that the current flows to the output instead of going through the transistor.}
+  \label{bild16}
+\end{figure}
+
+
+\subsection{The AND-Gate}
+
+The next logic gate we are having a look at is the so-called AND-Gate. The AND-Gate no longer acts only on one bit, but on two bits and results in one single bit as an output value. You can see the symbol in the upper-left-corner of Figure \ref{bild17}. The truth table below shows how the AND-Gates works. Explained in one sentence:\\
+\textit{If both inputs A and B take the value 1, the output will take the value 1.}\\
+So only if A=1 and B=1, then the output bit will have the value 1. If only one of the inputs has the value 1 or none of them, then the output will remain on bit value 0. \\
+Implemented with transistors it would look like on the right side of Figure \ref{bild17}. Only if both transistors get current in their basis (when both inputs A and B have the bit value 1), then the output will get current and thus take the value 1. If the basis of the first transistor gets current, but the second one doesn't, the current flows through the first and gets stopped at the second one. 
+
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild17.jpeg}
+  \caption{The AND-Gate symbol in the upper-left-hand corner with two inputs A and B and one output OUT. The truth table below shows how the AND-Gates acts on the input bits. On the right side you can see, how an AND-Gate is implemented with transistors. Only if the basis of each transistor A and B gets current, the current can flow from the collector of the first transistor through both transistors to the output.}
+  \label{bild17}
+\end{figure}
+
+\subsection{The OR-Gate}
+The last important logic gate we are having a look at is the so-called OR-Gate. Just like the AND-Gate, it acts on two input bits and results in one output bit. You can see the symbol of the OR-Gate in Figure \ref{bild18} together with the truth table and the transistor implementation. The functionality of the OR-Gate could be described like this:\\
+\textit{If either A \textbf{OR} B or both have the value 1, then the output will take the value 1.}\\
+So if both input bits have the value 0, then the output is also zero. If only one of the inputs takes the value 1, the output switches to bit value 1 as well. \\
+Implemented with transistors the OR-Gates looks a little bit more tricky than the previous gates. If we follow the way of the current, we will find out that it either has to go through the first or the second transistor to get to the output. Both ways are possible and it is sufficient, if only one transistor has current in its basis. \\
+
+
+
+\begin{figure}[h] 
+  \centering
+     \includegraphics[width=0.7\textwidth]{bild18.jpeg}
+  \caption{The OR-Gate symbol in the upper-left corner with the two inputs A and B and the one output OUT. The truth table below shows, how the OR-Gate acts on the input bits. Other than the AND-Gate, it is sufficient to have only one input bit with value 1 to switch the output bit to 1 as well. On the right side you can see the implementation with transistors. The current can flow through both transistors to get to the output. It is sufficient, if only one transistor has current on its basis.}
+  \label{bild18}
+\end{figure}
+
+
+\begin{mybox}{blue}{\textbf{Logic gates}}
+To process information one needs to apply so-called \textit{logic gates}. The three most important ones are the AND, OR and the NOT gate. \\
+The NOT gate acts on a single bit and has one bit as an output. It is also referred to as the inverter, because it inverts the bit value of the input.\\
+The AND gate acts on two input bits and results in one single output bit. The output only takes the value 1, if both input bits have the value 1.\\
+The OR gate - just like the AND gate - also acts on two input bits and results in one output bit. The output takes the value 1, if at least one of the input bits has the value 1.
+\end{mybox}
+
+There are many more gates, that are being used in digital technology, but it's enough to know these three, as we will see right now.
+Let's recall that any type of information can be represented by a sequence of bits and that processing information means to change that sequence of bits into another one. To do so, one has to change the single bits of the sequence and this is done by applying logic gates like AND, OR and NOT.\\
+To change the whole sequence of bits we need to combine the logic gates to a so-called \textit{circuit}. It can be mathematically proven that any circuit you can imagine can be constructed by using only those three gates. This is why those gates are called \textit{universal}. Every microprocessor consists entirely of these logic gates. It does not matter how you would like to change a certain type of information - it is entirely done by applying these three logic gates. Whether it is watching videos or adding numbers. \\
+Now that we know how a modern day computer operates on a fundamental level, we are ready to apply our knowledge in the quantum world.\\
+
+\begin{mybox}{blue}{\textbf{Circuits and Universality}}
+Combining logic gates creates a so-called \textit{circuit}. Any circuit can be constructed by using only AND, OR and NOT gates. This makes those three gates a \textit{universal set}. Every microprocessor processes information by using only those logic gates.
+\end{mybox}
+
+\end{document}
